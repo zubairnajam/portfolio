@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muhammad Zubair Najam | Software, AI and Security</title>
+  <meta name="description" content="Computer Science student at FAST-NUCES. I build software and AI projects, and I also work on app testing and security operations.">
+  <meta name="theme-color" content="#0a0e14">
+  <meta property="og:title" content="Muhammad Zubair Najam | Software, AI and Security">
+  <meta property="og:description" content="The software and AI projects I've built, plus a SOC internship and a Wazuh home lab.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230a0e14'/><path d='M9 10h14L9 22h14' fill='none' stroke='%234fe3c1' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+  <svg width="0" height="0" class="sprite" aria-hidden="true">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6m0-6L10 14M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 .5a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.08 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11.5H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1v5.85h-4v-5.2c0-1.24-.02-2.84-1.73-2.84-1.73 0-2 1.35-2 2.75v5.29h-4z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="12" height="12" rx="2"/><path d="M15.5 8.5V5.5a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3"/></symbol>
+    <symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+    <symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+    <symbol id="i-arrow-ur" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+    <symbol id="i-bug" viewBox="0 0 24 24"><rect x="7" y="8" width="10" height="12" rx="5"/><path d="M12 8v12M9 5l1.5 3M15 5l-1.5 3M3 13h4M17 13h4M4 8l3 2M20 8l-3 2M4 19l3-2M20 19l-3-2"/></symbol>
+  </svg>
+
+  <!-- ── Navigation ──────────────────────────────────────────── -->
+  <nav id="nav" aria-label="Main">
+    <div class="nav-inner">
+      <a href="#top" class="wordmark" aria-label="Home"><span class="wordmark-box">ZN</span>Zubair Najam</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#credentials">Credentials</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-primary btn-sm nav-cta">Get in touch</a>
+    </div>
+  </nav>
+
+  <!-- ── Hero ────────────────────────────────────────────────── -->
+  <header id="top" class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="status-pill"><span class="status-dot"></span>Open to internships and graduate roles</p>
+        <h1>Muhammad<br>Zubair Najam</h1>
+        <p class="hero-role">Software <span>/</span> AI &amp; GenAI <span>/</span> Automation &amp; QA <span>/</span> Security</p>
+        <p class="hero-sub">I study Computer Science at FAST-NUCES. I build software and AI projects, like a chatbot that answers questions about YouTube videos and a camera you control with your fingers. I also spent a summer as a SOC intern and run my own Wazuh lab at home.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary btn-lg">View projects <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a href="#contact" class="btn btn-ghost btn-lg">Contact me</a>
+        </div>
+        <ul class="hero-links" aria-label="Profiles">
+          <li><a href="https://github.com/zubairnajam" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/zubair-najam" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg>LinkedIn</a></li>
+          <li><a href="https://tryhackme.com/p/zubairnajam" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>TryHackMe</a></li>
+        </ul>
+      </div>
+
+      <div class="terminal" id="terminal" aria-label="Interactive terminal">
+        <div class="term-bar">
+          <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="term-title">zubair@fast-nuces: ~</span>
+        </div>
+        <div class="term-body" id="term-body" role="log" aria-live="polite"></div>
+        <form class="term-input" id="term-form" autocomplete="off">
+          <label for="term-cmd" class="prompt">$</label>
+          <input id="term-cmd" type="text" spellcheck="false" placeholder="type a command, or tap one below" aria-label="Terminal command">
+        </form>
+        <div class="term-chips" id="term-chips" aria-label="Suggested commands">
+          <button type="button" data-cmd="whoami">whoami</button>
+          <button type="button" data-cmd="focus">focus</button>
+          <button type="button" data-cmd="experience">experience</button>
+          <button type="button" data-cmd="certs">certs</button>
+          <button type="button" data-cmd="contact">contact</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+  <!-- ── About ───────────────────────────────────────────────── -->
+  <section id="about" aria-labelledby="about-title">
+    <div class="section-head">
+      <p class="section-index"><span>01</span>About</p>
+      <h2 id="about-title">A bit about me.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a Computer Science student at FAST-NUCES (National University of Computer and Emerging Sciences) and I graduate in 2027. Most of what I do is <strong>building software and AI projects</strong>, and I care a lot about security too, so I enjoy it most when the two overlap.</p>
+        <p>On the building side, I've made a chatbot that answers questions about any YouTube video, a camera that takes a photo when you hold up your fingers, and an online Mafia game you can play with friends. I also test mobile apps part time, which has made me pretty good at spotting the ways things go wrong.</p>
+        <p>On the security side, I spent two months as a SOC intern going through SIEM alerts and working out which ones were real. At home I run a Wazuh lab with an Ubuntu server and a Windows machine, and I practice writing Splunk searches that catch things like brute force logins. I have the Google Cybersecurity certificate and I've finished TryHackMe's SOC Level 1 path.</p>
+      </div>
+      <div class="focus">
+        <p class="focus-label">Roles I'm interested in</p>
+        <ol class="focus-list">
+          <li><span class="focus-n">01</span><div><b>Software engineering</b><p>Building web apps and APIs, and caring about how they hold up in real use.</p></div></li>
+          <li><span class="focus-n">02</span><div><b>AI and GenAI</b><p>Building with LLMs, retrieval and computer vision.</p></div></li>
+          <li><span class="focus-n">03</span><div><b>Automation</b><p>Python scripts, automated tests and benchmarks.</p></div></li>
+          <li><span class="focus-n">04</span><div><b>QA and testing</b><p>Using apps the way real people do and writing bug reports developers can act on.</p></div></li>
+          <li><span class="focus-n">05</span><div><b>Security operations</b><p>Watching alerts, digging into logs and responding when something looks off.</p></div></li>
+          <li><span class="focus-n">06</span><div><b>Data loss prevention</b><p>Keeping sensitive data where it belongs. I handled patient data under HIPAA at Ibex.</p></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Experience ──────────────────────────────────────────── -->
+  <section id="experience" aria-labelledby="exp-title">
+    <div class="section-head">
+      <p class="section-index"><span>02</span>Experience</p>
+      <h2 id="exp-title">Where I've worked.</h2>
+    </div>
+    <ol class="timeline">
+      <li class="role" data-animate>
+        <div class="role-when"><span>Dec 2025 to now</span><span class="role-tag">QA</span></div>
+        <div class="role-body">
+          <h3>App Tester <span class="role-org">at 9D Technologies</span></h3>
+          <p class="role-type">Part time</p>
+          <ul>
+            <li>Tested more than six mobile apps the way a normal user would, looking for anything confusing, broken or slow.</li>
+            <li>Wrote up what I found in clear reports so the developers knew exactly what to fix.</li>
+          </ul>
+        </div>
+      </li>
+      <li class="role" data-animate>
+        <div class="role-when"><span>Jul to Aug 2025</span><span class="role-tag">Security</span></div>
+        <div class="role-body">
+          <h3>SOC Intern <span class="role-org">at Secure Dev Labs</span></h3>
+          <p class="role-type">Security operations</p>
+          <ul>
+            <li>Went through SIEM alerts every day, checking login, endpoint and system logs to decide what needed attention.</li>
+            <li>Helped test detection rules by running controlled attack scenarios and checking which rules fired.</li>
+            <li>Looked at network traffic during investigations and wrote my notes into a SOC L1 reference guide for the team.</li>
+          </ul>
+        </div>
+      </li>
+      <li class="role" data-animate>
+        <div class="role-when"><span>May to Jul 2024</span><span class="role-tag">Data protection</span></div>
+        <div class="role-body">
+          <h3>Patient Enrollment Specialist <span class="role-org">at Ibex</span></h3>
+          <p class="role-type">U.S. clinical studies</p>
+          <ul>
+            <li>Spoke with 80+ patients a day and enrolled them into U.S. clinical studies while keeping their information private under HIPAA.</li>
+            <li>Kept my quality score above 98% for three months in a row.</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ── Projects ────────────────────────────────────────────── -->
+  <section id="projects" aria-labelledby="proj-title">
+    <div class="section-head section-head-row">
+      <div>
+        <p class="section-index"><span>03</span>Projects</p>
+        <h2 id="proj-title">Things I've built.</h2>
+      </div>
+      <div class="show-controls">
+        <button type="button" class="arrow-btn" id="show-prev" aria-label="Previous project"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+        <button type="button" class="arrow-btn" id="show-next" aria-label="Next project"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </div>
+    </div>
+
+    <div class="showcase" id="showcase" role="region" aria-roledescription="carousel" aria-label="Projects">
+      <div class="show-track" id="show-track" tabindex="0" aria-label="Projects. Use the arrow keys or drag to browse.">
+
+        <!-- 1 · FingerDetect -->
+        <article class="slide is-active" id="slide-1" aria-roledescription="slide" aria-label="Project 1 of 8">
+          <div class="slide-visual">
+            <svg class="viz" viewBox="0 0 480 320" role="img" aria-label="Webcam frame tracking 21 hand landmarks, counting four raised fingers and running a 3-2-1 photo countdown">
+              <path class="ln-mint" d="M36 52V36h16M444 52V36h-16M36 268v16h16M444 268v16h-16"/>
+              <circle class="rec" cx="56" cy="58" r="4"/>
+              <text x="66" y="62">REC · 30 fps</text>
+              <rect class="scan" x="36" y="36" width="408" height="2"/>
+              <text x="52" y="112" class="t-3">landmarks</text><text x="132" y="112" class="t-1">21</text>
+              <text x="52" y="132" class="t-3">features</text><text x="132" y="132" class="t-1">rel.</text>
+              <text x="52" y="152" class="t-3">tests</text><text x="132" y="152" class="t-1">58</text>
+              <text x="52" y="198" class="t-3">accuracy</text>
+              <rect class="bar-bg" x="52" y="208" width="96" height="6" rx="3"/><rect class="bar-amber" x="52" y="208" width="86" height="6" rx="3"/>
+              <text x="52" y="230" class="t-3 sm">v1 89.6%</text>
+              <rect class="bar-bg" x="52" y="240" width="96" height="6" rx="3"/><rect class="bar-mint grow-x" x="52" y="240" width="92" height="6" rx="3"/>
+              <text x="52" y="262" class="t-mint sm">v2 96.2%</text>
+              <rect class="bbox" x="168" y="80" width="150" height="202" rx="6"/>
+              <text x="168" y="74" class="t-mint">hand · 0.98</text>
+              <g class="bones">
+                <polyline points="243,268 218,252 198,232 196,212 212,202"/>
+                <polyline points="243,268 212,192 204,154 200,130 197,108"/>
+                <polyline points="212,192 238,186 264,190 287,202"/>
+                <polyline points="238,186 237,144 236,118 235,92"/>
+                <polyline points="264,190 268,152 270,128 272,106"/>
+                <polyline points="243,268 287,202 296,172 300,152 303,134"/>
+              </g>
+              <g class="joints">
+                <circle cx="243" cy="268" r="3.5"/><circle cx="218" cy="252" r="3"/><circle cx="198" cy="232" r="3"/><circle cx="196" cy="212" r="3"/><circle cx="212" cy="202" r="3"/>
+                <circle cx="212" cy="192" r="3"/><circle cx="204" cy="154" r="3"/><circle cx="200" cy="130" r="3"/>
+                <circle cx="238" cy="186" r="3"/><circle cx="237" cy="144" r="3"/><circle cx="236" cy="118" r="3"/>
+                <circle cx="264" cy="190" r="3"/><circle cx="268" cy="152" r="3"/><circle cx="270" cy="128" r="3"/>
+                <circle cx="287" cy="202" r="3"/><circle cx="296" cy="172" r="3"/><circle cx="300" cy="152" r="3"/>
+              </g>
+              <g class="tips"><circle cx="197" cy="108" r="5"/><circle cx="235" cy="92" r="5"/><circle cx="272" cy="106" r="5"/><circle cx="303" cy="134" r="5"/></g>
+              <rect class="box" x="352" y="80" width="84" height="92" rx="10"/>
+              <text x="364" y="100" class="t-3 sm">FINGERS</text>
+              <text x="364" y="156" class="big">4</text>
+              <circle class="ln" cx="394" cy="222" r="28"/>
+              <circle class="ring" cx="394" cy="222" r="28" transform="rotate(-90 394 222)"/>
+              <text x="394" y="229" class="cd cd1" text-anchor="middle">3</text>
+              <text x="394" y="229" class="cd cd2" text-anchor="middle">2</text>
+              <text x="394" y="229" class="cd cd3" text-anchor="middle">1</text>
+              <text x="394" y="268" class="t-3 sm" text-anchor="middle">capture</text>
+            </svg>
+          </div>
+          <div class="slide-copy">
+            <span class="project-kind">Computer vision</span>
+            <h3>FingerDetect</h3>
+            <p>Hold up some fingers and it counts them live, then takes a photo after a short countdown. Early on it kept reading four fingers as five. It was relying on where the hand sat on the screen, so I switched it to use the shape of the hand instead and retrained it.</p>
+            <dl class="project-metrics">
+              <div><dt>Accuracy</dt><dd>89.6% → 96.2%</dd></div>
+              <div><dt>Tests written</dt><dd>58</dd></div>
+              <div><dt>Faster classifier</dt><dd>2,365x</dd></div>
+            </dl>
+            <ul class="tags"><li>Python</li><li>MediaPipe</li><li>TensorFlow</li><li>NumPy</li><li>pytest</li><li>JavaScript</li></ul>
+            <div class="slide-actions">
+              <a class="card-link" href="https://finger-detection-ai-tau.vercel.app" target="_blank" rel="noopener">Live demo<svg class="icon" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
+              <a class="card-link" href="https://github.com/zubairnajam/Finger-Detection-AI" target="_blank" rel="noopener">Source<svg class="icon" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2 · Vidmind -->
+        <article class="slide" id="slide-2" aria-roledescription="slide" aria-label="Project 2 of 8">
+          <div class="slide-visual">
+            <svg class="viz" viewBox="0 0 480 320" role="img" aria-label="A YouTube transcript split into chunks, embedded into a FAISS index, and retrieved by an LLM to answer a question with a timestamp citation">
+              <rect class="box" x="24" y="28" width="196" height="110" rx="8"/>
+              <rect class="thumb" x="32" y="36" width="180" height="74" rx="5"/>
+              <circle class="play" cx="122" cy="73" r="15"/>
+              <path class="play-tri" d="M117 66l12 7-12 7z"/>
+              <line class="ln" x1="32" y1="120" x2="212" y2="120"/>
+              <line class="ln-mint thick" x1="32" y1="120" x2="96" y2="120"/>
+              <text x="32" y="133" class="t-3 sm">youtube.com/watch?v=… · 18:42</text>
+              <text x="24" y="156" class="t-3 sm">transcript → ~500-token chunks</text>
+              <rect class="box" x="24" y="164" width="46" height="22" rx="4"/><text x="34" y="179" class="sm">c01</text>
+              <rect class="box chunk-hit" x="74" y="164" width="46" height="22" rx="4"/><text x="84" y="179" class="sm t-1">c02</text>
+              <rect class="box" x="124" y="164" width="46" height="22" rx="4"/><text x="134" y="179" class="sm">c03</text>
+              <rect class="box" x="174" y="164" width="46" height="22" rx="4"/><text x="184" y="179" class="sm">c04</text>
+              <path class="ln" d="M47 186L110 228M97 186L116 228M147 186L128 228M197 186L134 228"/>
+              <ellipse class="box" cx="122" cy="258" rx="72" ry="32"/>
+              <g class="vec">
+                <circle cx="84" cy="250" r="2.5"/><circle cx="98" cy="266" r="2.5"/><circle cx="110" cy="244" r="2.5"/><circle cx="126" cy="272" r="2.5"/>
+                <circle cx="140" cy="250" r="2.5"/><circle cx="154" cy="264" r="2.5"/><circle cx="166" cy="246" r="2.5"/><circle cx="72" cy="262" r="2.5"/>
+                <circle cx="176" cy="260" r="2.5"/><circle cx="118" cy="256" r="2.5"/>
+              </g>
+              <circle class="vec-hit" cx="132" cy="258" r="4"/>
+              <text x="122" y="308" class="t-3 sm" text-anchor="middle">FAISS · embeddings</text>
+              <line class="ln" x1="194" y1="258" x2="268" y2="258"/>
+              <rect class="box mint-edge" x="268" y="242" width="96" height="32" rx="8"/>
+              <text x="281" y="262" class="t-1">LLM · Groq</text>
+              <line class="ln" x1="316" y1="242" x2="316" y2="224"/>
+              <rect class="box" x="244" y="28" width="212" height="196" rx="10"/>
+              <text x="256" y="48" class="t-3 sm">ASK THE VIDEO</text>
+              <rect class="bubble-me" x="292" y="60" width="152" height="30" rx="10"/>
+              <text x="304" y="79" class="t-1">What's the key idea?</text>
+              <rect class="box2" x="256" y="102" width="176" height="78" rx="10"/>
+              <rect class="type-line" x="268" y="116" width="150" height="6" rx="3"/>
+              <rect class="type-line l2" x="268" y="130" width="138" height="6" rx="3"/>
+              <rect class="type-line l3" x="268" y="144" width="108" height="6" rx="3"/>
+              <rect class="cite" x="268" y="157" width="66" height="16" rx="4"/>
+              <text x="274" y="169" class="t-amber sm">↳ 04:12</text>
+              <rect class="ln-box" x="256" y="192" width="188" height="22" rx="6"/>
+              <text x="266" y="207" class="t-3 sm">Ask anything about this video…</text>
+              <circle class="pk" r="3"><animateMotion dur="2.4s" repeatCount="indefinite" path="M97 186L116 228"/></circle>
+              <circle class="pk" r="3"><animateMotion dur="2.4s" begin="0.8s" repeatCount="indefinite" path="M194 258H268"/></circle>
+              <circle class="pk" r="3"><animateMotion dur="2.4s" begin="1.6s" repeatCount="indefinite" path="M316 242V224"/></circle>
+            </svg>
+          </div>
+          <div class="slide-copy">
+            <span class="project-kind">Generative AI</span>
+            <h3>Vidmind</h3>
+            <p>Paste a YouTube link and ask questions about the video. It splits the transcript into small chunks and stores them in a FAISS index. When you ask something, the model only answers from the parts that match your question, so it makes things up a lot less.</p>
+            <ul class="tags"><li>LangChain</li><li>FAISS</li><li>HuggingFace</li><li>Groq</li><li>Streamlit</li></ul>
+            <div class="slide-actions">
+              <a class="card-link" href="https://github.com/zubairnajam/vidmind" target="_blank" rel="noopener">Source<svg class="icon" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3 · Shadow State -->
+        <article class="slide" id="slide-3" aria-roledescription="slide" aria-label="Project 3 of 8">
+          <div class="slide-visual">
+            <svg class="viz" viewBox="0 0 480 320" role="img" aria-label="An authoritative game server sending each of six players only their own sanitized state, with a private channel for the mafia role">
+              <rect class="box" x="20" y="20" width="132" height="26" rx="13"/>
+              <path class="moon" d="M40 27a7 7 0 1 0 6 10 6 6 0 0 1-6-10z"/>
+              <text x="54" y="37" class="t-1 sm">Night 2 · 0:24</text>
+              <text x="460" y="37" class="t-3 sm" text-anchor="end">votes 3 / 5</text>
+              <g class="ln">
+                <line x1="240" y1="170" x2="240" y2="55"/><line x1="240" y1="170" x2="340" y2="113"/><line x1="240" y1="170" x2="340" y2="228"/>
+                <line x1="240" y1="170" x2="240" y2="285"/><line x1="240" y1="170" x2="140" y2="228"/><line x1="240" y1="170" x2="140" y2="113"/>
+              </g>
+              <g class="ln-amber dashed flow">
+                <line x1="240" y1="170" x2="340" y2="228"/><line x1="240" y1="170" x2="140" y2="113"/>
+              </g>
+              <g class="player"><circle cx="240" cy="55" r="18"/><text x="240" y="59" text-anchor="middle">P1</text></g>
+              <g class="player"><circle cx="340" cy="113" r="18"/><text x="340" y="117" text-anchor="middle">P2</text></g>
+              <g class="player mafia"><circle cx="340" cy="228" r="18"/><text x="340" y="232" text-anchor="middle">P3</text></g>
+              <g class="player out"><circle cx="240" cy="285" r="18"/><text x="240" y="289" text-anchor="middle">P4</text></g>
+              <g class="player"><circle cx="140" cy="228" r="18"/><text x="140" y="232" text-anchor="middle">P5</text></g>
+              <g class="player mafia"><circle cx="140" cy="113" r="18"/><text x="140" y="117" text-anchor="middle">P6</text></g>
+              <text x="372" y="232" class="t-amber sm">mafia</text>
+              <text x="84" y="117" class="t-amber sm">mafia</text>
+              <text x="262" y="289" class="t-3 sm">eliminated</text>
+              <text x="20" y="300" class="t-3 sm">each client gets only its own view</text>
+              <circle class="pk" r="3"><animateMotion dur="1.8s" repeatCount="indefinite" path="M240 170L240 55"/></circle>
+              <circle class="pk" r="3"><animateMotion dur="1.8s" begin="0.3s" repeatCount="indefinite" path="M240 170L340 113"/></circle>
+              <circle class="pk" r="3"><animateMotion dur="1.8s" begin="0.9s" repeatCount="indefinite" path="M240 170L140 228"/></circle>
+              <circle class="pk amber" r="3"><animateMotion dur="1.8s" begin="0.6s" repeatCount="indefinite" path="M240 170L340 228"/></circle>
+              <circle class="pk amber" r="3"><animateMotion dur="1.8s" begin="1.2s" repeatCount="indefinite" path="M240 170L140 113"/></circle>
+              <circle class="node-core" cx="240" cy="170" r="46"/>
+              <text x="240" y="167" class="t-1" text-anchor="middle">server</text>
+              <text x="240" y="183" class="t-3 sm" text-anchor="middle">authoritative</text>
+            </svg>
+          </div>
+          <div class="slide-copy">
+            <span class="project-kind">Multiplayer game</span>
+            <h3>Shadow State</h3>
+            <p>An online version of Mafia you can play with friends. The server runs the whole game, including roles, night actions, voting and who wins. Each player only gets the information they're meant to see, so nobody can peek at roles or cheat from their browser.</p>
+            <ul class="tags"><li>Next.js</li><li>Node.js</li><li>Express</li><li>Socket.io</li></ul>
+            <div class="slide-actions">
+              <a class="card-link" href="https://mafia-game-bay-chi.vercel.app" target="_blank" rel="noopener">Play it<svg class="icon" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
+              <a class="card-link" href="https://github.com/zubairnajam/Mafia-Game" target="_blank" rel="noopener">Source<svg class="icon" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4 · SOC Home Lab -->
+        <article class="slide" id="slide-4" aria-roledescription="slide" aria-label="Project 4 of 8">
+          <div class="slide-visual">
+            <svg class="viz" viewBox="0 0 480 320" role="img" aria-label="A Windows endpoint and an Ubuntu host shipping logs to a Wazuh manager, which raises prioritized alerts on a dashboard">
+              <rect class="box" x="20" y="52" width="124" height="72" rx="8"/>
+              <text x="32" y="74" class="t-1">WIN-10</text><circle class="live" cx="130" cy="70" r="4"/>
+              <text x="32" y="92" class="t-3 sm">wazuh-agent</text>
+              <text x="32" y="110" class="t-3 sm">sysmon · eventlog</text>
+              <rect class="box" x="20" y="196" width="124" height="72" rx="8"/>
+              <text x="32" y="218" class="t-1">ubuntu-01</text><circle class="live" cx="130" cy="214" r="4"/>
+              <text x="32" y="236" class="t-3 sm">wazuh-agent</text>
+              <text x="32" y="254" class="t-3 sm">auth.log · syslog</text>
+              <path class="ln" d="M144 88C162 88 160 140 176 140M144 232C162 232 160 180 176 180M304 160H330"/>
+              <rect class="box mint-edge" x="176" y="108" width="128" height="104" rx="10"/>
+              <text x="188" y="132" class="t-1">wazuh-manager</text>
+              <text x="188" y="150" class="t-3 sm">ubuntu server</text>
+              <text x="188" y="172" class="sm">decoders · rules</text>
+              <text x="188" y="190" class="sm">correlation</text>
+              <rect class="box" x="330" y="28" width="134" height="264" rx="10"/>
+              <text x="342" y="50" class="t-3 sm">ALERTS</text>
+              <g class="alert-row flash"><rect x="340" y="62" width="114" height="38" rx="6"/><text x="350" y="78" class="t-amber sm">lvl 10</text><text x="350" y="93" class="t-1 sm">brute force</text></g>
+              <g class="alert-row"><rect x="340" y="106" width="114" height="38" rx="6"/><text x="350" y="122" class="t-amber sm">lvl 5</text><text x="350" y="137" class="sm">ssh invalid user</text></g>
+              <g class="alert-row"><rect x="340" y="150" width="114" height="38" rx="6"/><text x="350" y="166" class="sm">lvl 7</text><text x="350" y="181" class="sm">integrity change</text></g>
+              <g class="alert-row"><rect x="340" y="194" width="114" height="38" rx="6"/><text x="350" y="210" class="t-3 sm">lvl 3</text><text x="350" y="225" class="sm">logon success</text></g>
+              <g class="alert-row"><rect x="340" y="238" width="114" height="38" rx="6"/><text x="350" y="254" class="t-3 sm">lvl 3</text><text x="350" y="269" class="sm">sudo session</text></g>
+              <text x="20" y="300" class="t-3 sm">2 operating systems · one pane of glass</text>
+              <circle class="pk" r="3"><animateMotion dur="2s" repeatCount="indefinite" path="M144 88C162 88 160 140 176 140"/></circle>
+              <circle class="pk" r="3"><animateMotion dur="2s" begin="1s" repeatCount="indefinite" path="M144 232C162 232 160 180 176 180"/></circle>
+              <circle class="pk amber" r="3"><animateMotion dur="1s" begin="0.5s" repeatCount="indefinite" path="M304 160H330"/></circle>
+            </svg>
+          </div>
+          <div class="slide-copy">
+            <span class="project-kind">Security</span>
+            <h3>SOC home lab</h3>
+            <p>I set up Wazuh on an Ubuntu server and connected a Windows machine to it, so logs from both end up in one place. I use it to practice working through alerts and matching login events with system events. I also wrote notes on how to add new log sources.</p>
+            <ul class="tags"><li>Wazuh</li><li>Ubuntu</li><li>Windows</li><li>Log correlation</li></ul>
+          </div>
+        </article>
+
+        <!-- 5 · Splunk -->
+        <article class="slide" id="slide-5" aria-roledescription="slide" aria-label="Project 5 of 8">
+          <div class="slide-visual">
+            <svg class="viz" viewBox="0 0 480 320" role="img" aria-label="A Splunk search charting failed logins per hour, with a spike from one source IP mapped to MITRE ATT&amp;CK T1110 brute force">
+              <rect class="box" x="20" y="24" width="440" height="40" rx="8"/>
+              <text x="34" y="49" class="t-mint">&gt;</text>
+              <text x="48" y="49" class="t-1">index=auth action=failure | stats count by src_ip</text>
+              <line class="ln" x1="20" y1="250" x2="300" y2="250"/>
+              <line class="ln-3 dashed" x1="20" y1="190" x2="300" y2="190"/>
+              <text x="300" y="184" class="t-3 sm" text-anchor="end">threshold 20</text>
+              <g class="bars">
+                <rect x="28" y="232" width="12" height="18"/><rect x="45" y="228" width="12" height="22"/><rect x="62" y="234" width="12" height="16"/><rect x="79" y="226" width="12" height="24"/>
+                <rect x="96" y="230" width="12" height="20"/><rect x="113" y="224" width="12" height="26"/><rect x="130" y="231" width="12" height="19"/><rect x="147" y="227" width="12" height="23"/>
+                <rect x="164" y="220" width="12" height="30"/><rect class="hot" x="181" y="140" width="12" height="110"/><rect class="hot" x="198" y="100" width="12" height="150"/><rect class="hot" x="215" y="154" width="12" height="96"/>
+                <rect x="232" y="222" width="12" height="28"/><rect x="249" y="229" width="12" height="21"/><rect x="266" y="232" width="12" height="18"/><rect x="283" y="226" width="12" height="24"/>
+              </g>
+              <text x="20" y="274" class="t-3 sm">failed logins / hour · last 24h</text>
+              <rect class="box" x="316" y="84" width="144" height="190" rx="10"/>
+              <text x="328" y="106" class="t-3 sm">TOP SRC_IP</text>
+              <text x="328" y="130" class="t-1 lg">10.0.4.23</text>
+              <text x="328" y="150" class="t-amber sm">142 failed logins</text>
+              <rect class="cite" x="328" y="166" width="120" height="40" rx="6"/>
+              <text x="338" y="183" class="t-amber sm">MITRE T1110</text>
+              <text x="338" y="198" class="t-1 sm">Brute Force</text>
+              <text x="328" y="232" class="sm">L1 triage → escalate</text>
+              <rect class="esc" x="328" y="244" width="120" height="18" rx="4"/>
+              <text x="338" y="257" class="t-mint sm">ticket raised</text>
+            </svg>
+          </div>
+          <div class="slide-copy">
+            <span class="project-kind">Threat hunting</span>
+            <h3>Splunk investigations</h3>
+            <p>I wrote my own Splunk searches to look for brute force attempts and strange login patterns, matched what I found to MITRE ATT&amp;CK, and worked each case the way an L1 analyst would, from the first alert to escalating it.</p>
+            <ul class="tags"><li>Splunk SPL</li><li>MITRE ATT&amp;CK</li><li>Incident triage</li></ul>
+            <div class="slide-actions">
+              <a class="card-link" href="https://tryhackme.com/p/zubairnajam" target="_blank" rel="noopener">TryHackMe profile<svg class="icon" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6 · Escape Grid -->
+        <article class="slide" id="slide-6" aria-roledescription="slide" aria-label="Project 6 of 8">
+          <div class="slide-visual">
+            <svg class="viz" id="viz-grid" viewBox="0 0 480 320" role="img" aria-label="A* search exploring an energy-constrained grid around walls and drawing the shortest path to the exit"></svg>
+          </div>
+          <div class="slide-copy">
+            <span class="project-kind">Search algorithms</span>
+            <h3>Escape Grid</h3>
+            <p>A small browser game where you try to escape a grid before your energy runs out. You can watch BFS, DFS and A* search the map step by step, see the costs A* is weighing up, or race the AI yourself.</p>
+            <ul class="tags"><li>JavaScript</li><li>BFS, DFS, A*</li><li>Canvas</li></ul>
+            <div class="slide-actions">
+              <a class="card-link" href="https://escape-grid.vercel.app" target="_blank" rel="noopener">Play it<svg class="icon" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7 · Carinator -->
+        <article class="slide" id="slide-7" aria-roledescription="slide" aria-label="Project 7 of 8">
+          <div class="slide-visual">
+            <svg class="viz" viewBox="0 0 480 320" role="img" aria-label="REST endpoints querying a normalized SQLite schema of cars, makes, users, reviews and favorites with parameterized SQL">
+              <g class="ep"><rect x="20" y="28" width="216" height="26" rx="6"/><text x="30" y="45" class="t-mint sm">GET</text><text x="66" y="45" class="sm t-1">/api/cars?make=&amp;year=</text></g>
+              <g class="ep"><rect x="20" y="60" width="216" height="26" rx="6"/><text x="30" y="77" class="t-mint sm">GET</text><text x="66" y="77" class="sm">/api/cars/:id</text></g>
+              <g class="ep"><rect x="20" y="92" width="216" height="26" rx="6"/><text x="30" y="109" class="t-amber sm">POST</text><text x="66" y="109" class="sm">/api/auth/login</text></g>
+              <g class="ep"><rect x="20" y="124" width="216" height="26" rx="6"/><text x="30" y="141" class="t-amber sm">POST</text><text x="66" y="141" class="sm">/api/favorites</text></g>
+              <g class="ep"><rect x="20" y="156" width="216" height="26" rx="6"/><text x="30" y="173" class="t-amber sm">POST</text><text x="66" y="173" class="sm">/api/reviews</text></g>
+              <g class="ep"><rect x="20" y="188" width="216" height="26" rx="6"/><text x="30" y="205" class="t-mint sm">GET</text><text x="66" y="205" class="sm">/api/me/notes</text></g>
+              <text x="20" y="234" class="t-3 sm">17 endpoints · JSON</text>
+              <rect class="box" x="20" y="246" width="216" height="52" rx="8"/>
+              <text x="30" y="266" class="t-3 sm">-- parameterized, injection-safe</text>
+              <text x="30" y="284" class="t-mint sm">WHERE make_id = ? AND year &gt;= ?</text>
+              <path class="ln-mint dashed flow" d="M358 52H378M358 90C368 90 368 140 378 140M378 160C368 160 368 176 358 176M378 236C368 236 368 196 358 196"/>
+              <g class="tbl"><rect x="268" y="30" width="90" height="74" rx="6"/><line x1="268" y1="48" x2="358" y2="48"/><text x="276" y="43" class="t-1 sm">cars</text><text x="276" y="62" class="sm">id</text><text x="276" y="76" class="sm">make_id</text><text x="276" y="90" class="sm">model, year</text></g>
+              <g class="tbl"><rect x="378" y="30" width="82" height="46" rx="6"/><line x1="378" y1="48" x2="460" y2="48"/><text x="386" y="43" class="t-1 sm">makes</text><text x="386" y="62" class="sm">id, name</text></g>
+              <g class="tbl"><rect x="378" y="120" width="82" height="60" rx="6"/><line x1="378" y1="138" x2="460" y2="138"/><text x="386" y="133" class="t-1 sm">reviews</text><text x="386" y="152" class="sm">car_id</text><text x="386" y="166" class="sm">user_id</text></g>
+              <g class="tbl"><rect x="268" y="150" width="90" height="60" rx="6"/><line x1="268" y1="168" x2="358" y2="168"/><text x="276" y="163" class="t-1 sm">users</text><text x="276" y="182" class="sm">email</text><text x="276" y="196" class="sm">pw_hash</text></g>
+              <g class="tbl"><rect x="378" y="214" width="82" height="60" rx="6"/><line x1="378" y1="232" x2="460" y2="232"/><text x="386" y="227" class="t-1 sm">favorites</text><text x="386" y="246" class="sm">user_id</text><text x="386" y="260" class="sm">car_id</text></g>
+              <text x="268" y="296" class="t-3 sm">8 tables · normalized · JOINs</text>
+            </svg>
+          </div>
+          <div class="slide-copy">
+            <span class="project-kind">Full stack</span>
+            <h3>Carinator</h3>
+            <p>A car catalog built with Flask and SQLite. Every query is parameterized so it's safe from SQL injection, passwords are hashed, and each user can save their own favorites, notes and reviews.</p>
+            <dl class="project-metrics">
+              <div><dt>API endpoints</dt><dd>17</dd></div>
+              <div><dt>Tables</dt><dd>8</dd></div>
+            </dl>
+            <ul class="tags"><li>Flask</li><li>SQLite</li><li>REST</li><li>JavaScript</li></ul>
+          </div>
+        </article>
+
+        <!-- 8 · Cybersecurity Analyst Simulation -->
+        <article class="slide" id="slide-8" aria-roledescription="slide" aria-label="Project 8 of 8">
+          <div class="slide-visual">
+            <svg class="viz" viewBox="0 0 480 320" role="img" aria-label="A high-severity alert moving through identify, contain and report stages into a written incident report">
+              <rect class="box" x="20" y="24" width="440" height="64" rx="10"/>
+              <rect class="cite" x="32" y="44" width="48" height="22" rx="5"/>
+              <text x="56" y="59" class="t-amber sm" text-anchor="middle">HIGH</text>
+              <text x="94" y="54" class="t-1">Suspicious outbound transfer</text>
+              <text x="94" y="72" class="t-3 sm">host WS-07 · 02:13 UTC</text>
+              <text x="448" y="54" class="t-3 sm" text-anchor="end">impact</text>
+              <text x="448" y="72" class="t-amber sm" text-anchor="end">business-critical</text>
+              <line class="ln" x1="80" y1="138" x2="400" y2="138"/>
+              <line class="ln-mint thick track" x1="80" y1="138" x2="400" y2="138" pathLength="1"/>
+              <circle class="stage s1" cx="80" cy="138" r="14"/><circle class="stage s2" cx="240" cy="138" r="14"/><circle class="stage s3" cx="400" cy="138" r="14"/>
+              <text x="80" y="174" class="t-1 sm" text-anchor="middle">Identify</text>
+              <text x="240" y="174" class="t-1 sm" text-anchor="middle">Contain</text>
+              <text x="400" y="174" class="t-1 sm" text-anchor="middle">Report</text>
+              <rect class="box" x="20" y="196" width="440" height="104" rx="10"/>
+              <text x="34" y="218" class="t-3 sm">INCIDENT REPORT · IR-0142</text>
+              <rect class="type-line" x="34" y="230" width="300" height="6" rx="3"/>
+              <rect class="type-line l2" x="34" y="244" width="250" height="6" rx="3"/>
+              <text x="34" y="272" class="t-mint sm">Remediation</text>
+              <rect class="type-line l3" x="120" y="266" width="210" height="6" rx="3"/>
+              <rect class="type-line l3" x="34" y="282" width="180" height="6" rx="3"/>
+            </svg>
+          </div>
+          <div class="slide-copy">
+            <span class="project-kind">Incident response</span>
+            <h3>Analyst simulation</h3>
+            <p>A Forage program where I sorted simulated alerts by how serious they were and how much they would hurt the business. I then worked each one through to containment and wrote a report on what to fix.</p>
+            <ul class="tags"><li>Incident response</li><li>Reporting</li><li>Forage</li></ul>
+          </div>
+        </article>
+      </div>
+
+      <div class="show-foot">
+        <ul class="show-index" aria-label="Jump to a project">
+          <li><button type="button" class="is-active" aria-current="true">FingerDetect</button></li>
+          <li><button type="button">Vidmind</button></li>
+          <li><button type="button">Shadow State</button></li>
+          <li><button type="button">SOC home lab</button></li>
+          <li><button type="button">Splunk</button></li>
+          <li><button type="button">Escape Grid</button></li>
+          <li><button type="button">Carinator</button></li>
+          <li><button type="button">Analyst simulation</button></li>
+        </ul>
+        <div class="show-meter">
+          <span class="show-count" id="show-count" aria-hidden="true"><b>01</b> / 08</span>
+          <span class="show-progress" aria-hidden="true"><span id="show-thumb"></span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Skills ──────────────────────────────────────────────── -->
+  <section id="skills" aria-labelledby="skills-title">
+    <div class="section-head">
+      <p class="section-index"><span>04</span>Skills</p>
+      <h2 id="skills-title">What I work with.</h2>
+    </div>
+    <div class="stack-list">
+      <div class="stack-row" data-animate>
+        <h3>Programming and web</h3>
+        <ul><li>Python</li><li>C and C++</li><li>JavaScript</li><li>SQL</li><li>React</li><li>Next.js</li><li>Node.js</li><li>Express</li><li>Flask</li><li>Socket.io</li><li>SQLite</li><li>MongoDB</li><li>Tailwind CSS</li></ul>
+      </div>
+      <div class="stack-row" data-animate>
+        <h3>AI and machine learning</h3>
+        <ul><li>RAG</li><li>LLM apps</li><li>Prompt engineering</li><li>LangChain</li><li>FAISS</li><li>Agentic AI</li><li>TensorFlow and Keras</li><li>OpenCV</li><li>MediaPipe</li></ul>
+      </div>
+      <div class="stack-row" data-animate>
+        <h3>Testing and automation</h3>
+        <ul><li>Functional testing</li><li>Usability testing</li><li>Bug reporting</li><li>pytest</li><li>Benchmarking</li><li>Python scripting</li></ul>
+      </div>
+      <div class="stack-row" data-animate>
+        <h3>Systems</h3>
+        <ul><li>Linux (Ubuntu)</li><li>Windows internals</li><li>Threads and IPC</li><li>Synchronization</li><li>Git</li></ul>
+      </div>
+      <div class="stack-row" data-animate>
+        <h3>Security operations</h3>
+        <ul><li>Splunk (SPL)</li><li>Wazuh</li><li>Log correlation</li><li>Alert triage</li><li>Incident response</li><li>Windows Event Logs</li><li>Sysmon</li><li>Wireshark</li><li>Network traffic analysis</li><li>OSINT and phishing analysis</li></ul>
+      </div>
+      <div class="stack-row" data-animate>
+        <h3>Frameworks and data protection</h3>
+        <ul><li>MITRE ATT&amp;CK</li><li>Cyber Kill Chain</li><li>NIST basics</li><li>Data Loss Prevention</li><li>Network security</li><li>Endpoint security</li><li>AI security</li><li>HIPAA</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Credentials ─────────────────────────────────────────── -->
+  <section id="credentials" aria-labelledby="cred-title">
+    <div class="section-head">
+      <p class="section-index"><span>05</span>Credentials</p>
+      <h2 id="cred-title">Certifications and education.</h2>
+    </div>
+    <div class="cred-grid">
+      <div class="panel">
+        <h3 class="panel-title">Certifications</h3>
+        <ul class="certs">
+          <li><span class="cert-name">Google Cybersecurity Professional Certificate (V2)</span><span class="cert-issuer">Google</span></li>
+          <li><span class="cert-name">SOC Level 1 Path</span><span class="cert-issuer">TryHackMe</span></li>
+          <li>
+            <span class="cert-name">AI Security Path</span><span class="cert-issuer">TryHackMe, in progress</span>
+            <span class="progress" aria-label="About 70% complete"><span style="--p:70%"></span></span>
+          </li>
+          <li><span class="cert-name">Introduction to Cybersecurity and Networking Basics</span><span class="cert-issuer">Cisco Networking Academy</span></li>
+          <li><span class="cert-name">Cybersecurity Analyst Simulation Program</span><span class="cert-issuer">Forage</span></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3 class="panel-title">Education</h3>
+        <ul class="edu">
+          <li>
+            <span class="edu-when">Class of 2027</span>
+            <span class="edu-what">BS Computer Science</span>
+            <span class="edu-where">National University of Computer and Emerging Sciences (FAST-NUCES)</span>
+          </li>
+          <li>
+            <span class="edu-when">2023</span>
+            <span class="edu-what">CAIE O &amp; A Levels</span>
+            <span class="edu-where">Generation's School, Karachi</span>
+          </li>
+        </ul>
+        <h3 class="panel-title panel-title-gap">What I'm working on now</h3>
+        <ul class="now">
+          <li>Finishing the TryHackMe AI Security path</li>
+          <li>Learning Windows event logging and how to write detections</li>
+          <li>Building a sandbox for malware analysis</li>
+          <li>Learning secure login with OAuth 2.0 and JWT</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Contact ─────────────────────────────────────────────── -->
+  <section id="contact" aria-labelledby="contact-title">
+    <div class="contact panel">
+      <p class="section-index"><span>06</span>Contact</p>
+      <h2 id="contact-title">Let's talk.</h2>
+      <p class="contact-sub">I'm looking for internships and graduate roles in software engineering, AI, automation, QA or security. Email is the quickest way to reach me.</p>
+      <div class="contact-actions">
+        <button type="button" class="email-copy" id="email-copy" data-email="zubairnajam18@gmail.com">
+          <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
+          <span>zubairnajam18@gmail.com</span>
+          <span class="copy-state" id="copy-state"><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>Copy</span>
+        </button>
+        <a class="btn btn-ghost btn-lg" href="https://www.linkedin.com/in/zubair-najam" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg>LinkedIn</a>
+        <a class="btn btn-ghost btn-lg" href="https://github.com/zubairnajam" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>GitHub</a>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p>© <span id="year">2026</span> Muhammad Zubair Najam</p>
+      <p class="footer-sub"><a href="#top">Back to top</a></p>
+    </div>
+  </footer>
+
+  <script src="main.js" type="module"></script>
+</body>
+</html>
